@@ -3,16 +3,16 @@ import os
 
 def trim_middle_minute(filepath):
     if not os.path.exists(filepath):
-        print(f"❌ File not found: {filepath}")
+        print(f" File not found: {filepath}")
         return
 
-    print(f"📂 Loading video: {filepath}")
+    print(f" Loading video: {filepath}")
     video = VideoFileClip(filepath)
 
     # Calculate start and end times for the middle 1-minute segment
     total_duration = video.duration
     if total_duration <= 60:
-        print("⚠️ Video is 60 seconds or shorter — no trimming needed.")
+        print(" video is 60 seconds or shorter.")
         return
 
     mid_point = total_duration / 2
@@ -31,7 +31,7 @@ def trim_middle_minute(filepath):
     os.remove(filepath)
     os.rename(temp_filename, filepath)
 
-    print(f"✅ Replaced with middle 1-minute clip ({start_time:.2f}s to {end_time:.2f}s).")
+    print(f"Replaced with 1-minute clip ({start_time:.2f}s to {end_time:.2f}s).")
 
 def trim_all_mp4(folder_path):
     for filename in os.listdir(folder_path):
@@ -40,7 +40,7 @@ def trim_all_mp4(folder_path):
             try:
                 trim_middle_minute(filepath)
             except Exception as e:
-                print(f"❌ Failed to process {filename}: {e}")
+                print(f"Failed to process {filename}: {e}")
 
 if __name__ == "__main__":
     folder_path = "test_vids"  # Replace with your folder path
